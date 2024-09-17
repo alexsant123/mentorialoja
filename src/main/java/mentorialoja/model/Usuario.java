@@ -74,6 +74,14 @@ public class Usuario implements UserDetails {
 		return this.acessos;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 	@Override
 	public String getPassword() {
 		return this.senha;
