@@ -56,4 +56,7 @@ public class Acesso implements GrantedAuthority {
 		return Objects.equals(id, other.id);
 	}
 
+	public Long getId() {
+		return id;
+	}
 }
