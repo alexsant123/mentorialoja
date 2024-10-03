@@ -77,7 +77,7 @@ public class AcessoController {
 
 
     @ResponseBody
-    @GetMapping(value = "**/buscarPorDesc/{desc}")
+    @GetMapping(value = " **/buscarPorDesc/{desc}")
     public ResponseEntity<List<Acesso>> buscarPorDesc(@PathVariable("desc") String desc) {
 
         List<Acesso> acesso = acessoRepository.buscarAcessoDesc(desc);

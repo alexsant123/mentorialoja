@@ -1,6 +1,6 @@
 package mentorialoja.repository;
 
-import jakarta.transaction.Transactional;
+import javax.transaction.Transactional;
 import mentorialoja.model.Acesso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
