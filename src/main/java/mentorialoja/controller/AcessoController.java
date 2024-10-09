@@ -24,7 +24,6 @@ import mentorialoja.repository.AcessoRepository;
 import mentorialoja.service.AcessoService;
 
 
-//@CrossOrigin(origins = "https://www.jdevtreinamento.com.br")
 @Controller
 @RestController
 public class AcessoController {
@@ -36,7 +35,7 @@ public class AcessoController {
     private AcessoRepository acessoRepository;
 
     @ResponseBody /*Poder dar um retorno da API*/
-    @PostMapping(value = "**/salvarAcesso") /*Mapeando a url para receber JSON*/
+    @PostMapping(value = "/salvarAcesso") /*Mapeando a url para receber JSON*/
     public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) { /*Recebe o JSON e converte pra Objeto*/
 
         Acesso acessoSalvo = acessoService.save(acesso);
@@ -71,7 +70,6 @@ public class AcessoController {
     public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) {
 
         Acesso acesso = acessoRepository.findById(id).get();
-
         return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
     }
 

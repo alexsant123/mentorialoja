@@ -16,4 +16,8 @@ public interface AcessoRepository extends JpaRepository<Acesso, Long> {
     List<Acesso> buscarAcessoDesc(String desc);
 
 
+
+
+
+
 }

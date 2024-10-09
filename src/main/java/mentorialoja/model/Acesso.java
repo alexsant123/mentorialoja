@@ -11,6 +11,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "acesso")
@@ -25,6 +26,7 @@ public class Acesso implements GrantedAuthority {
 	@Column(nullable = false)
 	private String descricao;
 
+	@JsonIgnore
 	@Override
 	public String getAuthority() {
 		// TODO Auto-generated method stub
@@ -59,4 +61,12 @@ public class Acesso implements GrantedAuthority {
 	public Long getId() {
 		return id;
 	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 }
+
+
+
+
