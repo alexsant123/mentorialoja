@@ -35,8 +35,13 @@ public abstract class Pessoa implements Serializable {
 	private String nome;
 	@Column(nullable = false)
 	private String email;
+
 	@Column(nullable = false)
 	private String telefone;
+
+	@Column
+	private String tipoPessoa;
+
 
 	public Long getId() {
 		return id;
@@ -63,7 +68,7 @@ public abstract class Pessoa implements Serializable {
 	}
 
 	public String getTelefone() {
-		return telefone;
+		return  this.telefone;
 	}
 
 	public void setTelefone(String telefone) {
