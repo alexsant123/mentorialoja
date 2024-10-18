@@ -1,6 +1,9 @@
 package mentorialoja.security;
 
+import mentorialoja.service.ImplementacaoUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -10,10 +13,10 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 
 import org.springframework.http.HttpMethod;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
 
 import javax.servlet.http.HttpSessionListener;
 
@@ -21,6 +24,11 @@ import javax.servlet.http.HttpSessionListener;
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class SecurityConfigurations  extends WebSecurityConfigurerAdapter implements HttpSessionListener{
+    @Autowired
+    private ImplementacaoUserDetailsService implementacaoUserDetailsService;
+
+
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
@@ -41,6 +49,22 @@ public class SecurityConfigurations  extends WebSecurityConfigurerAdapter implem
 
                 .addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);
 
+    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(implementacaoUserDetailsService).passwordEncoder(new BCryptPasswordEncoder());
+
+    }
+
+
+
+
+    /*Ignora alguas URL livre de                                                                                                     autenticação*/
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        //web.ignoring().antMatchers(HttpMethod.GET, "/salvarAcesso", "/deleteAcesso")
+        //.antMatchers(HttpMethod.POST, "/salvarAcesso", "/deleteAcesso");
+        /*Ingnorando URL no momento para nao autenticar*/
     }
 
 

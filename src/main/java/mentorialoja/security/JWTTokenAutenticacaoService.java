@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 
 
 import com.example.demo.ApplicationContextLoad;
+import io.jsonwebtoken.MalformedJwtException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -33,7 +34,7 @@ public class JWTTokenAutenticacaoService {
     /*Chave de senha para juntar com o JWT*/
     private static final String SECRET = "ss/-*-*sds565dsd-s/d-s*dsds";
 
-    private static final String TOKEN_PREFIX = "Bearer";
+    private static final String TOKEN_PREFIX = "Bearer ";
 
     private static final String HEADER_STRING = "Authorization";
 
@@ -70,27 +71,31 @@ public class JWTTokenAutenticacaoService {
 
             String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
 
-            /*Faz a validacao do token do usuário na requisicao e obtem o USER*/
-            String user = Jwts.parser().
-                    setSigningKey(SECRET)
-                    .parseClaimsJws(tokenLimpo)
-                    .getBody().getSubject(); /*ADMIN ou Alex*/
+            try {
+                String user = Jwts.parser()
+                        .setSigningKey(SECRET)
+                        .parseClaimsJws(tokenLimpo)
+                        .getBody().getSubject();
 
-            if (user != null) {
-
-                Usuario usuario = ApplicationContextLoad.
-                        getApplicationContext().
-                        getBean(UsuarioRepository.class).findUserByLogin(user);
-
-                if (usuario != null) {
-                    return new UsernamePasswordAuthenticationToken(
-                            usuario.getLogin(),
-                            usuario.getSenha(),
-                            usuario.getAuthorities());
+                if (user != null) {
+                    Usuario usuario = ApplicationContextLoad
+                            .getApplicationContext()
+                            .getBean(UsuarioRepository.class)
+                            .findUserByLogin(user);
+                    if (usuario != null) {
+                        return new UsernamePasswordAuthenticationToken(
+                                usuario.getLogin(),
+                                usuario.getSenha(),
+                                usuario.getAuthorities());
+                    }
                 }
-
+            } catch (MalformedJwtException e) {
+                // Tratar token malformado
+                e.printStackTrace(); // ou logar a exceção
+            } catch (Exception e) {
+                // Tratar outras exceções
+                e.printStackTrace(); // ou logar a exceção
             }
-
         }
 
         liberacaoCors(response);
