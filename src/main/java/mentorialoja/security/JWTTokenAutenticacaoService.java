@@ -1,5 +1,6 @@
 package mentorialoja.security;
 
+import java.io.IOException;
 import java.util.Date;
 
 
@@ -7,28 +8,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import com.example.demo.ApplicationContextLoad;
-import io.jsonwebtoken.MalformedJwtException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.SignatureException;
+import   com.example.demo.ApplicationContextLoad;
 import mentorialoja.model.Usuario;
 import mentorialoja.repository.UsuarioRepository;
 
-import  com.example.demo.ApplicationContextLoad;
+
+
 
 /*Criar a autenticação e retonar também a autenticação JWT*/
 @Service
 @Component
 public class JWTTokenAutenticacaoService {
-
-
-    /*Token de validade de 11 dias*/
+    //*Token de validade de 11 dias*/
     private static final long EXPIRATION_TIME = 959990000;
 
     /*Chave de senha para juntar com o JWT*/
@@ -63,42 +66,50 @@ public class JWTTokenAutenticacaoService {
 
 
     /*Retorna o usuário validado com token ou caso nao seja valido retona null*/
-    public Authentication getAuthetication(HttpServletRequest request, HttpServletResponse response) {
+    public Authentication getAuthetication(HttpServletRequest request, HttpServletResponse response) throws IOException {
 
         String token = request.getHeader(HEADER_STRING);
 
-        if (token != null) {
+        try {
 
-            String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
+            if (token != null) {
 
-            try {
-                String user = Jwts.parser()
-                        .setSigningKey(SECRET)
+                String tokenLimpo = token.replace(TOKEN_PREFIX, "").trim();
+
+                /*Faz a validacao do token do usuário na requisicao e obtem o USER*/
+                String user = Jwts.parser().
+                        setSigningKey(SECRET)
                         .parseClaimsJws(tokenLimpo)
-                        .getBody().getSubject();
+                        .getBody().getSubject(); /*ADMIN ou Alex*/
 
                 if (user != null) {
-                    Usuario usuario = ApplicationContextLoad
-                            .getApplicationContext()
-                            .getBean(UsuarioRepository.class)
-                            .findUserByLogin(user);
+
+                    Usuario usuario = ApplicationContextLoad.
+                            getApplicationContext().
+                            getBean(UsuarioRepository.class).findUserByLogin(user);
+
                     if (usuario != null) {
                         return new UsernamePasswordAuthenticationToken(
                                 usuario.getLogin(),
                                 usuario.getSenha(),
                                 usuario.getAuthorities());
                     }
+
                 }
-            } catch (MalformedJwtException e) {
-                // Tratar token malformado
-                e.printStackTrace(); // ou logar a exceção
-            } catch (Exception e) {
-                // Tratar outras exceções
-                e.printStackTrace(); // ou logar a exceção
+
             }
+
+        }catch (SignatureException e) {
+            response.getWriter().write("Token está inválido.");
+
+
+        }catch (ExpiredJwtException e) {
+            response.getWriter().write("Token está expirado, efetue o login novamente.");
+        }
+        finally {
+            liberacaoCors(response);
         }
 
-        liberacaoCors(response);
         return null;
     }
 
@@ -130,4 +141,3 @@ public class JWTTokenAutenticacaoService {
 
 
 }
-
