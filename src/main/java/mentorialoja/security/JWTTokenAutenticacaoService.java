@@ -34,7 +34,7 @@ public class JWTTokenAutenticacaoService {
     /*Chave de senha para juntar com o JWT*/
     private static final String SECRET = "ss/-*-*sds565dsd-s/d-s*dsds";
 
-    private static final String TOKEN_PREFIX = "Bearer ";
+    private static final String TOKEN_PREFIX = "Bearer";
 
     private static final String HEADER_STRING = "Authorization";
 

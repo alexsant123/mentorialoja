@@ -1,5 +1,6 @@
 package mentorialoja.controller;
 
+import com.example.demo.ExceptionMentoriaJava;
 import mentorialoja.model.Acesso;
 import java.util.List;
 
@@ -67,11 +68,17 @@ public class AcessoController {
 
     @ResponseBody
     @GetMapping(value = "**/obterAcesso/{id}")
-    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) {
+    public ResponseEntity<Acesso> obterAcesso(@PathVariable("id") Long id) throws ExceptionMentoriaJava {
 
-        Acesso acesso = acessoRepository.findById(id).get();
-        return new ResponseEntity<Acesso>(acesso, HttpStatus.OK);
+        Acesso acesso = acessoRepository.findById(id).orElse(null);
+
+        if (acesso == null) {
+            throw new ExceptionMentoriaJava("Não encontrou Acesso com código: " + id);
+        }
+
+        return new ResponseEntity<Acesso>(acesso,HttpStatus.OK);
     }
+
 
 
     @ResponseBody
