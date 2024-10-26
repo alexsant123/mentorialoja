@@ -31,7 +31,8 @@ import mentorialoja.repository.UsuarioRepository;
 @Service
 @Component
 public class JWTTokenAutenticacaoService {
-    //*Token de validade de 11 dias*/
+    @Autowired
+    /*Token de validade de 11 dias*/
     private static final long EXPIRATION_TIME = 959990000;
 
     /*Chave de senha para juntar com o JWT*/
