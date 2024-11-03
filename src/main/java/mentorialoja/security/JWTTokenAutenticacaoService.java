@@ -1,5 +1,7 @@
 package mentorialoja.security;
 
+
+
 import java.io.IOException;
 import java.util.Date;
 
@@ -8,8 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
+import com.example.demo.ApplicationContextLoad;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
@@ -20,8 +21,7 @@ import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
-import   com.example.demo.ApplicationContextLoad;
-import mentorialoja.model.Usuario;
+import  mentorialoja.model.Usuario;
 import mentorialoja.repository.UsuarioRepository;
 
 
@@ -31,7 +31,8 @@ import mentorialoja.repository.UsuarioRepository;
 @Service
 @Component
 public class JWTTokenAutenticacaoService {
-    @Autowired
+
+
     /*Token de validade de 11 dias*/
     private static final long EXPIRATION_TIME = 959990000;
 

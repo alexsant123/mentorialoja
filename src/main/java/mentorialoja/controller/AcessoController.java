@@ -36,7 +36,7 @@ public class AcessoController {
     private AcessoRepository acessoRepository;
 
     @ResponseBody /*Poder dar um retorno da API*/
-    @PostMapping(value = "**/salvarAcesso") /*Mapeando a url para receber JSON*/
+    @PostMapping(value = "mentorialoja/salvarAcesso") /*Mapeando a url para receber JSON*/
     public ResponseEntity<Acesso> salvarAcesso(@RequestBody Acesso acesso) throws ExceptionMentoriaJava { /*Recebe o JSON e converte pra Objeto*/
 
         if (acesso.getId() == null) {

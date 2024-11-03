@@ -27,15 +27,12 @@ public class JwtApiAutenticacaoFilter extends GenericFilterBean {
 
         try {
 
-
             /*Estabele a autenticao do user*/
 
             Authentication authentication = new JWTTokenAutenticacaoService().
                     getAuthetication((HttpServletRequest) request, (HttpServletResponse) response);
 
-
             /*Coloca o processo de autenticacao para o spring secutiry*/
-
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             chain.doFilter(request, response);
@@ -46,8 +43,6 @@ public class JwtApiAutenticacaoFilter extends GenericFilterBean {
         }
 
     }
-
-
 
 
 

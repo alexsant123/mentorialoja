@@ -63,6 +63,8 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
             e.printStackTrace();
         }
     }
+
+
     @Override
     protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
                                               AuthenticationException failed) throws IOException, ServletException {
@@ -74,7 +76,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         }
 
         //super.unsuccessfulAuthentication(request, response, failed);
+    }
 
 
-}}
-
+}
