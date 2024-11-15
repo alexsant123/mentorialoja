@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @SpringBootApplication
 @EntityScan(basePackages = "mentorialoja.model")
-@ComponentScan(basePackages = {"mentorialoja.*"})
+@ComponentScan(basePackages = {"mentorialoja.*","com.*"})
 @EnableJpaRepositories(basePackages = {"mentorialoja.repository"})
 @EnableTransactionManagement
 public class mentorialojaapp {
