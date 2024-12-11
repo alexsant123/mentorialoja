@@ -1,25 +1,22 @@
 package mentorialoja.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Column;
 import javax.persistence.ConstraintMode;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
 import mentorialoja.enums.TipoEndereco;
 
 
@@ -28,41 +25,71 @@ import mentorialoja.enums.TipoEndereco;
 @SequenceGenerator(name = "seq_endereco", sequenceName = "seq_endereco", allocationSize = 1, initialValue = 1)
 public class Endereco implements Serializable {
 
+
 	private static final long serialVersionUID = 1L;
+
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_endereco")
 	private Long id;
-	
 
-	@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
-	private Pessoa pessoa;
-	
+
 	@Column(nullable = false)
-	private String rua_Logra;
-	
+	private String ruaLogra;
+
 	@Column(nullable = false)
 	private String cep;
-	
+
 	@Column(nullable = false)
 	private String numero;
-	
+
+
 	private String complemento;
-	
+
 	@Column(nullable = false)
 	private String bairro;
-	
+
 	@Column(nullable = false)
 	private String uf;
-	
+
 	@Column(nullable = false)
 	private String cidade;
 
 
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "pessoa_id", nullable = false, foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
+	private Pessoa pessoa;
+
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private TipoEndereco tipoEndereco;
+
+
+	@ManyToOne(targetEntity = Pessoa.class)
+	@JoinColumn(name = "empresa_id", nullable = false,
+			foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
+	private Pessoa empresa;
+
+
+
+
+	public Pessoa getEmpresa() {
+		return empresa;
+	}
+
+
+	public void setEmpresa(Pessoa empresa) {
+		this.empresa = empresa;
+	}
+
+
+	public void setTipoEndereco(TipoEndereco tipoEndereco) {
+		this.tipoEndereco = tipoEndereco;
+	}
+
+	public TipoEndereco getTipoEndereco() {
+		return tipoEndereco;
+	}
 
 
 	public Long getId() {
@@ -75,23 +102,13 @@ public class Endereco implements Serializable {
 	}
 
 
-	public Pessoa getPessoa() {
-		return pessoa;
+	public String getRuaLogra() {
+		return ruaLogra;
 	}
 
 
-	public void setPessoa(Pessoa pessoa) {
-		this.pessoa = pessoa;
-	}
-
-
-	public String getRua_Logra() {
-		return rua_Logra;
-	}
-
-
-	public void setRua_Logra(String rua_Logra) {
-		this.rua_Logra = rua_Logra;
+	public void setRuaLogra(String ruaLogra) {
+		this.ruaLogra = ruaLogra;
 	}
 
 
@@ -155,15 +172,15 @@ public class Endereco implements Serializable {
 	}
 
 
-	public TipoEndereco getTipoEndereco() {
-		return tipoEndereco;
+	public Pessoa getPessoa() {
+		return pessoa;
 	}
 
 
-	public void setTipoEndereco(TipoEndereco tipoEndereco) {
-		this.tipoEndereco = tipoEndereco;
+	public void setPessoa(Pessoa pessoa) {
+		this.pessoa = pessoa;
 	}
-	
+
 
 	@Override
 	public int hashCode() {
@@ -172,6 +189,7 @@ public class Endereco implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		return result;
 	}
+
 
 	@Override
 	public boolean equals(Object obj) {
@@ -189,28 +207,7 @@ public class Endereco implements Serializable {
 			return false;
 		return true;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
+
 }
+
