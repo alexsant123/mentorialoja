@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -49,12 +50,13 @@ public class  MentorialojaApplicationTests extends TestCase {
 
 		DefaultMockMvcBuilder builder = MockMvcBuilders.webAppContextSetup(this.wac);
 		MockMvc mockMvc = builder.build();
+
 		Acesso acesso = new Acesso();
 
-		acesso.setDescricao("ROLE_COMPRADOR");
-
+		acesso.setDescricao("ROLE_COMRADOR" + Calendar.getInstance().getTimeInMillis());
 
 		ObjectMapper objectMapper = new ObjectMapper();
+
 		ResultActions retornoApi = mockMvc
 				.perform(MockMvcRequestBuilders.post("/salvarAcesso")
 						.content(objectMapper.writeValueAsString(acesso))
@@ -70,8 +72,6 @@ public class  MentorialojaApplicationTests extends TestCase {
 						Acesso.class);
 
 		assertEquals(acesso.getDescricao(), objetoRetorno.getDescricao());
-
-
 
 
 	}
@@ -148,11 +148,13 @@ public class  MentorialojaApplicationTests extends TestCase {
 		MockMvc mockMvc = builder.build();
 
 		Acesso acesso = new Acesso();
-     long n=62L;
-		acesso.setId(n);
+
+		acesso.setDescricao("ROLE_OBTER_ID");
+
 		acesso = acessoRepository.save(acesso);
 
 		ObjectMapper objectMapper = new ObjectMapper();
+
 
 		ResultActions retornoApi = mockMvc
 				.perform(MockMvcRequestBuilders.get("/obterAcesso/" + acesso.getId())
