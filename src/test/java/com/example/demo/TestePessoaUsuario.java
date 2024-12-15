@@ -1,8 +1,7 @@
 package com.example.demo;
 
 import junit.framework.TestCase;
-import mentorialoja.service.PessoaUserDetailsService;
-import org.junit.jupiter.api.Test;
+import mentorialoja.service.PessoaUserService;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
@@ -10,5 +9,5 @@ import org.springframework.context.annotation.Profile;
 @SpringBootTest(classes=mentorialojaapp.class)
 public class TestePessoaUsuario extends TestCase{
 
-  private PessoaUserDetailsService pessoaUserDetailsService;
+  private PessoaUserService pessoaUserService;
 }
