@@ -52,7 +52,7 @@ public class Usuario implements UserDetails {
 
 
 	@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "pessoa_id", nullable = false,
+	@JoinColumn(name = "pessoa_id", nullable = true,
 			foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "pessoa_fk"))
 	private Pessoa pessoa;
 
@@ -69,7 +69,7 @@ public class Usuario implements UserDetails {
 
 
 	@ManyToOne(targetEntity = Pessoa.class)
-	@JoinColumn(name = "empresa_id", nullable = false,
+	@JoinColumn(name = "empresa_id", nullable = true,
 			foreignKey = @ForeignKey(value = ConstraintMode.CONSTRAINT, name = "empresa_id_fk"))
 	private Pessoa empresa;
 

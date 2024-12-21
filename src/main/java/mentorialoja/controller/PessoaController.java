@@ -1,10 +1,10 @@
 package mentorialoja.controller;
 
 import com.example.demo.ExceptionMentoriaJava;
-import java.util.Calendar;
 import mentorialoja.model.PessoaJuridica;
 import mentorialoja.repository.PesssoaRepository;
 import mentorialoja.service.PessoaUserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
