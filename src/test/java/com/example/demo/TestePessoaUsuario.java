@@ -26,14 +26,13 @@ public class TestePessoaUsuario extends TestCase {
 
     PessoaJuridica pessoaJuridica = new PessoaJuridica();
     pessoaJuridica.setCnpj("" + Calendar.getInstance().getTimeInMillis());
-    pessoaJuridica.setNome("Alex fernando");
-    pessoaJuridica.setEmail("testesalvarpj@gmail.com");
-    pessoaJuridica.setTelefone("45999795800");
-    pessoaJuridica.setInscEstadual("65556565656665");
-    pessoaJuridica.setInscMunicipal("55554565656565");
-    pessoaJuridica.setNomeFantasia("54556565665");
-    pessoaJuridica.setRazaoSocial("4656656566");
-
+    pessoaJuridica.setNome("YTJGH");
+    pessoaJuridica.setEmail("lanRD5Y6TUYF@gmail.com");
+    pessoaJuridica.setTelefone("YK");
+    pessoaJuridica.setInscEstadual("JHGJGH");
+    pessoaJuridica.setInscMunicipal("445JHJH153415");
+    pessoaJuridica.setNomeFantasia("JHGGG");
+    pessoaJuridica.setRazaoSocial("JHHYTG");
 
     pessoaController.salvarPj(pessoaJuridica);
 
